@@ -1,4 +1,4 @@
-/* made by @un-index <github.com/un-index>
+/* @un-index <github.com/un-index>
  * project moved to my main account
  * note check logs frequently and refresh the editor when using Glitch for hosting
  */
