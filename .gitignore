@@ -1,0 +1,4 @@
+.glitchdotcom.json
+.node-gyp
+.vscode/*
+node_modules/
