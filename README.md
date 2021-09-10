@@ -9,6 +9,12 @@ add your uri to the .env file, which should look like:
 ```
 mongoDbURI=mongodb+srv://<username>:<password>@...
 ```
+
+make sure to run 
+```
+npm install
+``` 
+in the console to install the dependencies specified in package.json
   
 host it somewhere, e.g on [Glitch](https://glitch.com) (e.g by uploading all these files to your project) or [repl.it](https://replit.com/~) and test it out
 ___
