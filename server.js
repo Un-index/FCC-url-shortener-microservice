@@ -1,5 +1,5 @@
 /* author: @un-index <github.com/un-index>
- * @fileoverview the code to run with Node.js on the backend 
+ * @fileoverview the code to run with Node.js on the backend
  * project moved to my main account
  * note check logs frequently and refresh the editor when using Glitch for hosting
  */
@@ -33,68 +33,67 @@
 // TODO: clear db via signing in and visiting https://cloud.mongodb.com/
 // via the left sidebar:  Deployment > Databases > View Collections
 
-require('dotenv').config();
+require("dotenv").config();
 
-const dns = require('dns');
-const express = require('express');
-const cors = require('cors');
+const dns = require("dns");
+const express = require("express");
+const cors = require("cors");
 const app = express();
 
-
 async function main() {
-  const mongoose = require('mongoose');
+  const mongoose = require("mongoose");
   try {
     await mongoose.connect(process.env.mongoDbURI, {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
     });
   } catch (err) {
-    err => console.log(err);
+    (err) => console.log(err);
   }
 
   const connection = mongoose.connection;
-  connection.once('open', function() {
-    console.log('connected');
+  connection.once("open", function () {
+    console.log("connected");
   });
 
   const Schema = mongoose.Schema;
 
   // store one empty entry so the rest can start from 1 as in the sample https://url-shortener-microservice.freecodecamp.rocks/api/shorturl/0
 
-  const aModel = connection.model('n', new Schema({ _id: String, n: Number }));
+  const aModel = connection.model("n", new Schema({ _id: String, n: Number }));
 
   const urlEntrySchema = new Schema({
     _id: Number,
     original_url: String,
-    short_url: String
+    short_url: String,
   });
 
-  const urlEntryModel = connection.model('urlEntry', urlEntrySchema);
+  const urlEntryModel = connection.model("urlEntry", urlEntrySchema);
 
   app.use(cors());
   app.use(express.urlencoded());
   app.use(express.json());
-  app.use('/public', express.static(`${process.cwd()}/public`));
+  app.use("/public", express.static(`${process.cwd()}/public`));
 
   // log all urlEntryModel documents
   // urlEntryModel.find({}, (err, document) => {
   //  console.log(document);
   // })
 
-  app.get('/api/shorturl/:id', async function(req, res) {
+  app.get("/api/shorturl/:id", async function (req, res) {
     const id = req.params.id;
 
     // check if it is a valid id
     if (isNaN(id)) {
-      return res.send({ error: 'Wrong format' });
+      return res.send({ error: "Wrong format" });
     }
 
     const document = await urlEntryModel.findById(id);
     if (document) {
       console.log(
-        'found urlEntryModel, id: ',
+        "found urlEntryModel, id: ",
         req.params.id,
-        'og url: ',
+        "og url: ",
         document.original_url
       );
 
@@ -102,15 +101,15 @@ async function main() {
     }
 
     // if the document wasn't found, tell them it wasn't
-    res.send({ error: 'No short URL found for the given input' });
+    res.send({ error: "No short URL found for the given input" });
   });
 
-  app.get('/', function(req, res) {
-    res.sendFile(process.cwd() + '/views/index.html');
+  app.get("/", function (req, res) {
+    res.sendFile(process.cwd() + "/views/index.html");
   });
 
-  app.get('/api/hello', function(req, res) {
-    res.json({ greeting: 'hello API' });
+  app.get("/api/hello", function (req, res) {
+    res.json({ greeting: "hello API" });
   });
 
   // made it async
@@ -120,16 +119,15 @@ async function main() {
     // console.log('document currently = ', document)
     if (document.length !== 0) {
       console.log(
-        'document already exists with this original_url: ',
+        "document already exists with this original_url: ",
         document[0].original_url
       );
       callback(false, document[0].short_url);
       return;
     }
 
-    // increment the counter in the 'n' collection every time we need to save a document in the urlEntryModel collection 
-        
-    let nValue;
+    // increment the counter in the 'n' collection every time we need to save a document in the urlEntryModel collection
+
     aModel.findOneAndUpdate(
       {},
       { $inc: { n: 1 } },
@@ -138,31 +136,29 @@ async function main() {
         callback(document.n, false);
       }
     );
-
-    return Number(nValue);
   }
 
-  app.post('/api/shorturl', function(req, res) {
+  app.post("/api/shorturl", function (req, res) {
     const url = req.body.url;
     var urlToParse;
     try {
       urlToParse = new URL(url);
     } catch (e) {
-      res.send({ error: 'Invalid URL' });
+      res.send({ error: "Invalid URL" });
       return;
     }
     // could be undefined or it could contain a NON http or https protocol, which we must ignore
-    if (!urlToParse || !urlToParse.protocol.substr(0,6).includes("http")) {
-      res.send({ error: 'Invalid URL' });
+    if (!urlToParse || !urlToParse.protocol.substr(0, 6).includes("http")) {
+      res.send({ error: "Invalid URL" });
       return;
     }
 
     const hostName = urlToParse.hostname;
 
     // https://nodejs.org/api/dns.html#dns_dns_lookup_hostname_options_callback
-    dns.lookup(hostName, err => {
+    dns.lookup(hostName, (err) => {
       if (err) {
-        res.send({ error: 'Invalid URL' });
+        res.send({ error: "Invalid URL" });
         return;
       }
     });
@@ -170,17 +166,17 @@ async function main() {
     let getNNow = (nVal, existingShortUrl) => {
       if (!nVal) {
         console.log(
-          'short url exists, sending that in the response: (%s)',
+          "short url exists, sending that in the response: (%s)",
           existingShortUrl
         );
         res.send({ original_url: url, short_url: existingShortUrl });
         return;
       }
-      console.log('will use n: ', nVal);
+      console.log("will use n: ", nVal);
       const urlEntry = new urlEntryModel({
         _id: nVal,
         original_url: url,
-        short_url: /*projectBaseUrl + '/' +*/ nVal
+        short_url: /*projectBaseUrl + '/' +*/ nVal,
       });
       urlEntry.save();
 
@@ -191,7 +187,7 @@ async function main() {
     getNextNandUse(getNNow, url);
   });
 
-  app.listen(3000, function() {
+  app.listen(3000, function () {
     console.log(`Listening on port 3000`);
   });
 }
