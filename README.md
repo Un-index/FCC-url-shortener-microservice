@@ -1,4 +1,4 @@
-## template project to help you complete the free-code-camp url shortener microservice API
+## Template project to help you complete the free-code-camp url shortener microservice API
 https://www.freecodecamp.org/learn/back-end-development-and-apis/back-end-development-and-apis-projects/url-shortener-microservice
 
 ## additional help
