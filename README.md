@@ -1,6 +1,6 @@
-## Complete project to help you complete the free-code-camp url shortener microservice API certification project
-https://www.freecodecamp.org/learn/back-end-development-and-apis/back-end-development-and-apis-projects/url-shortener-microservice
+## Complete project to help you complete the free-code-camp [url shortener microservice API certification project](https://www.freecodecamp.org/learn/back-end-development-and-apis/back-end-development-and-apis-projects/url-shortener-microservice)
 
+test it out here: https://fcc-url-shortener-microservice.un-index.repl.co/
 ## Setup instructions
 visit https://www.freecodecamp.org/news/get-started-with-mongodb-atlas/ and follow the instructions to get your MongoDB URI
 
