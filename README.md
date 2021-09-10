@@ -6,6 +6,8 @@ visit https://www.freecodecamp.org/news/get-started-with-mongodb-atlas/ and foll
 
 add your url to the .env file, which should look like:
 
+```
 mongoDbURI=mongodb+srv://<username>:<password>@...
+```
   
 host it somewhere, e.g on glitch and test it out
