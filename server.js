@@ -1,5 +1,5 @@
 /* author: @un-index <github.com/un-index>
- * @fileoverview the code to run with Node.js in the backend 
+ * @fileoverview the code to run with Node.js on the backend 
  * project moved to my main account
  * note check logs frequently and refresh the editor when using Glitch for hosting
  */
