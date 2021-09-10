@@ -11,5 +11,5 @@ mongoDbURI=mongodb+srv://<username>:<password>@...
 ```
   
 host it somewhere, e.g on [Glitch](https://glitch.com) (e.g by uploading all these files to your project) or [repl.it](https://replit.com/~) and test it out
-
-_This should be enough to help you get something of an outline on how to create it. Letting others just copy everything without understanding is **not** the purpose of this project._
+___
+PS: _This should be enough to help you get something of an outline on how to create it. Letting others just copy everything without understanding is **not** the purpose of this project._
