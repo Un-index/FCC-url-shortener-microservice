@@ -144,20 +144,20 @@ async function main() {
 
   app.post('/api/shorturl', function(req, res) {
     const url = req.body.url;
-    var urlLToParse;
+    var urlToParse;
     try {
-      urlLToParse = new URL(url);
+      urlToParse = new URL(url);
     } catch (e) {
       res.send({ error: 'Invalid URL' });
       return;
     }
-    // could be undefined
-    if (!urlLToParse) {
+    // could be undefined or it could contain a NON http or https protocol, which we must ignore
+    if (!urlToParse || !urlToParse.protocol.substr(0,6).includes("http")) {
       res.send({ error: 'Invalid URL' });
       return;
     }
 
-    const hostName = urlLToParse.hostname;
+    const hostName = urlToParse.hostname;
 
     // https://nodejs.org/api/dns.html#dns_dns_lookup_hostname_options_callback
     dns.lookup(hostName, err => {
