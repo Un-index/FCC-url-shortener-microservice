@@ -13,8 +13,8 @@
     const {randomBytes} = require('crypto')
      randomBytes(3, (err, buf) => {
       if (err) throw err;
-      let 5char = buf.toString('hex').substr(0,5)
-        console.log(5char)
+      let char5 = buf.toString('hex').substr(0,5)
+        console.log(char5)
         // ez
       })
       
